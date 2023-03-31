@@ -1,10 +1,7 @@
-'use strict';
-
 import 'whatwg-fetch';
 import { dataURL, ActivateMessageBoard, micboard, updateNavLinks } from './app.js';
 import { renderGroup, updateSlot } from './channelview.js';
 import { updateChart } from './chart-smoothie.js';
-
 
 export function postJSON(url, data, callback) {
   fetch(url, {
@@ -13,19 +10,19 @@ export function postJSON(url, data, callback) {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then(res => res.json())
+  }).then((res) => res.json())
     .then((response) => {
-      console.log('Success:', JSON.stringify(response))
+      console.log('Success:', JSON.stringify(response));
       if (callback) {
         callback();
       }
     })
-    .catch(error => console.error('Error:', error));
+    .catch((error) => console.error('Error:', error));
 }
 
 function JsonUpdate() {
   fetch(dataURL)
-    .then(response => response.json())
+    .then((response) => response.json())
     .then((data) => {
       if (micboard.connectionStatus === 'DISCONNECTED') {
         window.location.reload();
@@ -41,9 +38,8 @@ function JsonUpdate() {
     });
 }
 
-
 function updateGroup(data) {
-  console.log('dgroup: ' + data.group + ' mgroup: ' + micboard.group);
+  console.log(`dgroup: ${data.group} mgroup: ${micboard.group}`);
   micboard.groups[data.group].title = data.title;
   micboard.groups[data.group].slots = data.slots;
   if (micboard.group === data.group) {
@@ -67,7 +63,7 @@ function wsConnect() {
     newUri = 'ws:';
   }
 
-  newUri += '//' + loc.host + loc.pathname + 'ws';
+  newUri += `//${loc.host}${loc.pathname}ws`;
 
   micboard.socket = new WebSocket(newUri);
 
