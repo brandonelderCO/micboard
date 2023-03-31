@@ -38,7 +38,6 @@ function openLogFile() {
   shell.openItem(file);
 }
 
-
 const createPyProc = () => {
   const script = path.join(__dirname, 'dist', 'micboard-service', 'micboard-service').replace('app.asar', 'app.asar.unpacked');
   pyProc = child.spawn(script, [], {
@@ -60,7 +59,6 @@ function restartMicboardServer() {
   pyProc = null;
   setTimeout(createPyProc, 250);
 }
-
 
 app.on('ready', () => {
   const icon = path.join(__dirname, 'build', 'trayTemplate.png').replace('app.asar', 'app.asar.unpacked');
@@ -86,9 +84,8 @@ app.on('ready', () => {
   }, 5000);
 });
 
-
 // app.on('ready', createPyProc);
 
-app.on('window-all-closed', e => e.preventDefault());
+app.on('window-all-closed', (e) => e.preventDefault());
 
 app.on('will-quit', exitPyProc);
