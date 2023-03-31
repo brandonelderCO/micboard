@@ -1,7 +1,6 @@
-'use strict';
-
 const builder = require("electron-builder");
-const Platform = builder.Platform
+
+const { Platform } = builder;
 
 // Promise is returned
 builder.build({
@@ -36,4 +35,4 @@ builder.build({
   })
   .catch((error) => {
     // handle error
-  })
+  });
