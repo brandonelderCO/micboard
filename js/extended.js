@@ -55,7 +55,7 @@ function initSlotEdit() {
   const slots = configArrayGenerator();
 
   tx.forEach((t) => {
-    const slotSelector = document.getElementById('slot-' + t.slot);
+    const slotSelector = document.getElementById(`slot-${t.slot}`);
 
     slotSelector.querySelector('.chartzone').style.display = 'none';
     slotSelector.querySelector('.errorzone').style.display = 'block';
@@ -64,11 +64,10 @@ function initSlotEdit() {
     slotSelector.querySelector('.info-drawer').style.display = 'block';
 
     if (t.channel) {
-      slotSelector.querySelector('.errortype').innerHTML = 'Slot ' + t.slot + ' CH ' + t.channel;
+      slotSelector.querySelector('.errortype').innerHTML = `Slot ${t.slot} CH ${t.channel}`;
     } else {
-      slotSelector.querySelector('.errortype').innerHTML = 'Slot ' + t.slot;
+      slotSelector.querySelector('.errortype').innerHTML = `Slot ${t.slot}`;
     }
-
 
     slotSelector.querySelector('.ip').innerHTML = t.ip;
     slotSelector.querySelector('.rxinfo').innerHTML = t.name_raw;
