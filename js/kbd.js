@@ -1,12 +1,9 @@
-'use strict';
-
 import { micboard, updateHash, generateQR } from './app.js';
 import { toggleInfoDrawer, toggleImageBackground, toggleVideoBackground, toggleDisplayMode } from './display';
 import { renderGroup } from './channelview.js';
 import { groupEditToggle, initEditor } from './dnd.js';
 import { slotEditToggle } from './extended.js';
 import { initConfigEditor } from './config.js';
-
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
 function toggleFullScreen() {
@@ -18,10 +15,9 @@ function toggleFullScreen() {
 }
 
 export function keybindings() {
-  $('#hud-button').click( function() {
+  $('#hud-button').click(() => {
     $('#hud').hide();
   });
-
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {

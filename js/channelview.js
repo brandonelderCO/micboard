@@ -1,5 +1,3 @@
-'use strict';
-
 import { micboard, ActivateMessageBoard, updateHash } from './app.js';
 import { updateBackground } from './gif.js';
 import { initChart, charts } from './chart-smoothie.js';
@@ -20,7 +18,6 @@ function allSlots() {
   return out;
 }
 
-
 // enables info-drawer toggle for mobile clients
 function infoToggle() {
   $('.col-sm').click((e) => {
@@ -38,12 +35,11 @@ function infoToggle() {
 
 function updateTXOffset(slotSelector, data) {
   if (data.tx_offset !== 255) {
-    slotSelector.querySelector('p.offset').innerHTML = data.tx_offset + ' dB';
+    slotSelector.querySelector('p.offset').innerHTML = `${data.tx_offset} dB`;
   } else {
     slotSelector.querySelector('p.offset').innerHTML = '';
   }
 }
-
 
 function updateRuntime(slotSelector, data) {
   slotSelector.querySelector('p.runtime').innerHTML = data.runtime;
@@ -63,9 +59,8 @@ function updateQuality(slotSelector, data) {
 }
 
 function updateFrequency(slotSelector, data) {
-  slotSelector.querySelector('p.frequency').innerHTML = data.frequency + ' Hz';
-  if (data.frequency === '000000')
-  {
+  slotSelector.querySelector('p.frequency').innerHTML = `${data.frequency} Hz`;
+  if (data.frequency === '000000') {
     slotSelector.querySelector('.frequency').style.display = 'none';
   } else {
     slotSelector.querySelector('.frequency').style.display = 'block';
@@ -99,10 +94,9 @@ function updateStatus(slotSelector, data) {
   }
 }
 
-
 function updateIP(slotSelector, data) {
   slotSelector.querySelector('p.ip').innerHTML = data.ip;
-  slotSelector.querySelector('p.rxinfo').innerHTML = data.type + ' CH ' + data.channel;
+  slotSelector.querySelector('p.rxinfo').innerHTML = `${data.type} CH ${data.channel}`;
 }
 
 const BatteryTable = {
@@ -133,7 +127,7 @@ function updateBattery(slotSelector, data) {
     let hideChart = false;
 
     if (micboard.groups[micboard.group]) {
-      hideChart = micboard.groups[micboard.group]['hide_charts'];
+      hideChart = micboard.groups[micboard.group].hide_charts;
     }
 
     if (hideChart) {
@@ -145,7 +139,6 @@ function updateBattery(slotSelector, data) {
     }
   }
 }
-
 
 function updateDiversity(slotSelector, data) {
   const div = slotSelector.querySelector('.diversity');
@@ -178,7 +171,6 @@ function updateCheck(data, key, callback) {
   }
 }
 
-
 function updateSelector(slotSelector, data) {
   updateCheck(data, 'id', () => {
     updateID(slotSelector, data);
@@ -209,7 +201,6 @@ function updateSelector(slotSelector, data) {
     updateFrequency(slotSelector, data);
   });
 }
-
 
 export function updateViewOnly(slotSelector, data) {
   if ('status' in data) {
@@ -252,7 +243,7 @@ export function updateSlot(data) {
   if (data.slot === 0) {
     return;
   }
-  const slot = 'slot-' + data.slot;
+  const slot = `slot-${data.slot}`;
   const slotSelector = document.getElementById(slot);
   if (slotSelector) {
     updateSelector(slotSelector, data);
@@ -274,7 +265,7 @@ export function renderDisplayList(dl) {
     let t;
     if (e !== 0) {
       t = document.getElementById('column-template').content.cloneNode(true);
-      t.querySelector('div.col-sm').id = 'slot-' + tx[e].slot;
+      t.querySelector('div.col-sm').id = `slot-${tx[e].slot}`;
       updateViewOnly(t, tx[e]);
       charts[tx[e].slot] = initChart(t, tx[e]);
     } else {
