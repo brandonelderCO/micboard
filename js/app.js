@@ -1,5 +1,3 @@
-"use strict";
-
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import QRCode from 'qrcode';
@@ -18,7 +16,6 @@ import { initConfigEditor } from './config.js';
 import '../css/colors.scss';
 import '../css/style.scss';
 import '../node_modules/@ibm/plex/css/ibm-plex.css';
-
 
 export const dataURL = 'data.json';
 
@@ -66,11 +63,11 @@ export function generateQR() {
   document.getElementById('largelink').href = url;
   document.getElementById('largelink').innerHTML = url;
   QRCode.toCanvas(document.getElementById('qrcode'), url, qrOptions, (error) => {
-    if (error) console.error(error)
+    if (error) console.error(error);
     console.log('success!');
   });
 
-  document.getElementById('micboard-version').innerHTML = 'Micboard version: ' + VERSION;
+  document.getElementById('micboard-version').innerHTML = `Micboard version: ${VERSION}`;
 }
 
 function groupTableBuilder(data) {
@@ -124,7 +121,7 @@ function mapGroups() {
     }
   });
 
-  $('a.preset-link').each(function(index) {
+  $('a.preset-link').each(function (index) {
     const id = parseInt($(this).attr('id')[9], 10);
 
     $(this).click(() => {
@@ -155,7 +152,6 @@ function getUrlParameter(sParam) {
   return undefined;
 }
 
-
 function readURLParameters() {
   micboard.url.group = getUrlParameter('group');
   micboard.url.demo = getUrlParameter('demo');
@@ -174,20 +170,19 @@ export function updateHash() {
     hash += '&demo=true';
   }
   if (micboard.group !== 0) {
-    hash += '&group=' + micboard.group;
+    hash += `&group=${micboard.group}`;
   }
   if (micboard.displayMode === 'tvmode') {
-    hash += '&tvmode=' + micboard.infoDrawerMode;
+    hash += `&tvmode=${micboard.infoDrawerMode}`;
   }
   if (micboard.backgroundMode !== 'NONE') {
-    hash += '&bgmode=' + micboard.backgroundMode;
+    hash += `&bgmode=${micboard.backgroundMode}`;
   }
   if (micboard.settingsMode === 'CONFIG') {
-    hash = '#settings=true'
+    hash = '#settings=true';
   }
   hash = hash.replace('&', '');
   history.replaceState(undefined, undefined, hash);
-
 }
 
 function dataFilterFromList(data) {
@@ -209,8 +204,6 @@ function displayListChooser() {
   }
 }
 
-
-
 function initialMap(callback) {
   fetch(dataURL)
     .then((response) => {
@@ -226,7 +219,7 @@ function initialMap(callback) {
         mapGroups();
 
         if (micboard.config.slots.length < 1) {
-          setTimeout(function() {
+          setTimeout(() => {
             initConfigEditor();
           }, 125);
         }
@@ -250,9 +243,8 @@ function initialMap(callback) {
     });
 }
 
-
 $(document).ready(() => {
-  console.log('Starting Micboard version: ' + VERSION);
+  console.log(`Starting Micboard version: ${VERSION}`);
   readURLParameters();
   keybindings();
   if (micboard.url.demo === 'true') {
